@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2196F3">
+  <title>Feedback Detector PWA</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Feedback Detector</h1>
+
+    <!-- Live Mode -->
+    <div class="mode" id="live-mode">
+      <h2>Live Mode</h2>
+      <button id="start-live" class="btn">Start Live Monitoring</button>
+      <button id="stop-live" class="btn" disabled>Stop</button>
+      <div class="controls">
+        <label>Threshold: <input type="range" id="threshold" min="0" max="255" value="200"></label>
+        <span id="threshold-value">200</span>
+      </div>
+      <canvas id="spectrogram" width="600" height="300"></canvas>
+      <div id="feedback-frequencies">Feedback Frequencies: None</div>
+    </div>
+
+    <!-- Test Mode -->
+    <div class="mode" id="test-mode">
+      <h2>Test Mode</h2>
+      <div class="test-controls">
+        <div>
+          <label>Start Frequency (Hz): <input type="number" id="start-freq" value="20"></label>
+          <label>End Frequency (Hz): <input type="number" id="end-freq" value="20000"></label>
+        </div>
+        <div>
+          <label>Duration (s): <input type="number" id="sweep-duration" value="5" step="0.1"></label>
+          <button id="run-sweep" class="btn">Run Frequency Sweep</button>
+        </div>
+        <div>
+          <label>Test Tone (Hz): <input type="number" id="test-tone-freq" value="1000"></label>
+          <button id="play-tone" class="btn">Play Test Tone</button>
+          <button id="stop-tone" class="btn">Stop Tone</button>
+        </div>
+      </div>
+      <div id="test-results">Test Results: None</div>
+    </div>
+
+    <!-- Location Mapping -->
+    <div class="mode" id="location-mode">
+      <h2>Location Mapping</h2>
+      <button id="get-location" class="btn">Get Current Location</button>
+      <button id="add-manual-location" class="btn">Add Manual Location</button>
+      <div id="location-info">Location: Not set</div>
+      <div id="map" style="height: 300px; width: 100%;"></div>
+    </div>
+
+    <!-- Results -->
+    <div class="mode" id="results-mode">
+      <h2>Results</h2>
+      <button id="export-results" class="btn">Export Results</button>
+      <button id="clear-results" class="btn">Clear Results</button>
+      <pre id="results-data">No data yet.</pre>
+    </div>
+  </div>
+
+  <!-- Load Leaflet for maps (optional) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Load app scripts -->
+  <script src="audio-processor.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Register Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(registration => console.log('ServiceWorker registered'))
+          .catch(err => console.log('ServiceWorker registration failed: ', err));
+      });
+    }
+  </script>
+</body>
+</html>
