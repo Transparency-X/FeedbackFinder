@@ -1,6 +1,4 @@
-# FeedbackFinder PWA 🎤🔍
-
-![FeedbackFinder Logo](https://via.placeholder.com/150/2196F3/FFFFFF?text=FeedbackFinder) *(Replace with your logo)*
+# FeedbackFinder PWA
 
 **FeedbackFinder** is a **Progressive Web App (PWA)** designed to detect, analyze, and map audio feedback in real-time using the **Web Audio API** and **AudioWorklet**. It works on **Android devices** (e.g., Samsung S24+) and helps sound engineers, musicians, audiologists, and venue managers identify and eliminate feedback issues in live sound systems, hearing aids, PA systems, and more.
 
